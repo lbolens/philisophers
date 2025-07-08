@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/08 12:43:24 by lbolens           #+#    #+#             */
+/*   Updated: 2025/07/08 13:07:06 by lbolens          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -39,3 +51,6 @@ typedef struct s_table
     t_fork *forks;
     t_fork *philos;
 } t_table;
+
+//Parsing
+bool parsing(t_table *table, char **argv);
