@@ -6,21 +6,22 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 13:20:12 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/08 14:22:13 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/07/14 11:59:19 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void init_forks(t_fork *forks, t_philo *philos, t_table *table, int i)
+static void init_forks(t_fork *forks, t_philo *philos, t_table *table, int i)
 {
-    pthread_mutex_init(&forks[i].fork,NULL);
+    if (pthread_mutex_init(&forks[i].fork, NULL) != 0)
+        exit_program(table, philos, forks);
     forks[i].fork_id = i;
     philos[i].left_fork = &forks[i];
     philos[i].right_fork = &forks[(i + 1) % table->nbr_philo];
 }
 
-void init_philos(t_philo *philos, t_table *table, int i)
+static void init_philos(t_philo *philos, t_table *table, int i)
 {
     philos->philo_id = i;
     philos->nbr_meals = 0;
@@ -29,7 +30,7 @@ void init_philos(t_philo *philos, t_table *table, int i)
     philos->table = table;
 }
 
-void init_data(t_table *table)
+void init_data(t_table *table, char **argv)
 {
     t_philo *philos;
     t_fork *forks;
@@ -37,13 +38,19 @@ void init_data(t_table *table)
     
     philos = malloc(table->nbr_philo * sizeof(t_philo));
     if (!philos)
-        exit(1);
+        exit_program(table, philos, forks);
     table->philos = philos;
     forks = malloc(table->nbr_philo * sizeof(t_fork));
     if (!forks)
-        exit(1);
+        exit_program(table, philos, forks);
     table->forks = forks;
-    table->time_start = time;
+    table->time_start = get_time();
+    table->time_end = 0;
+    table->time_eat = argv[3];
+    table->time_sleep = argv[4];
+    table->time_die = argv[2];
+    if (pthread_mutex_init(&table->print_mutex, NULL) != 0)
+        exit_program(table, philos, forks);
     i = 0;
     while (i < table->nbr_philo)
     {
@@ -51,5 +58,4 @@ void init_data(t_table *table)
         init_philos(&philos[i], table, i);
         i++;
     }
-    
 }

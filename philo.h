@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:43:24 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/08 13:07:06 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/07/14 10:15:23 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_table
     long time_end;
     t_fork *forks;
     t_fork *philos;
+    mtx print_mutex;
 } t_table;
 
 //Parsing

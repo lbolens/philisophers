@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:43:21 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/08 13:30:57 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/07/14 10:42:51 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int argc, char **argv)
         //2) Init the data
         init_data(&table, argv);
         //3) starting the dinner
-
+        init_dinner();
         //4) Exiting without leaks
         exit_program();
     }
