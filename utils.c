@@ -6,47 +6,46 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 10:03:02 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/15 11:01:29 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/07/15 14:35:00 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long    get_time(void)
+long	get_time(void)
 {
-    struct timeval time;
-    
-    gettimeofday(&time, NULL);
-    return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void exit_program(t_table *table, long *args)
+void	exit_program(t_table *table, long *args, int i)
 {
-    int i;
-    
+	if (table->forks)
+	{
+		while (i < table->nbr_philo)
+		{
+			pthread_mutex_destroy(&table->forks[i].fork);
+			i++;
+		}
+		free(table->forks);
+	}
+	pthread_mutex_destroy(&table->print_mutex);
+	pthread_mutex_destroy(&table->stop_mutex);
 	i = 0;
-    if (table->forks) {
-        while (i < table->nbr_philo) {
-            pthread_mutex_destroy(&table->forks[i].fork);
-            i++;
-        }
-        free(table->forks);
-    }
-    pthread_mutex_destroy(&table->print_mutex);
-    pthread_mutex_destroy(&table->stop_mutex);
-	i = 0;
-    if (table->philos)
+	if (table->philos)
 	{
 		while (i < table->nbr_philo)
 		{
 			pthread_mutex_destroy(&table->philos[i].last_meal_mutex);
 			i++;
 		}
-        free(table->philos);
+		free(table->philos);
 	}
-    if (args)
-        free(args);
-    exit(1);
+	if (args)
+		free(args);
+	exit(1);
 }
 
 int	ft_atol(const char *str)
