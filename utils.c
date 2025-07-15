@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 10:03:02 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/14 17:11:59 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/07/15 11:01:29 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ long    get_time(void)
 
 void exit_program(t_table *table, long *args)
 {
-    int i = 0;
+    int i;
     
+	i = 0;
     if (table->forks) {
         while (i < table->nbr_philo) {
             pthread_mutex_destroy(&table->forks[i].fork);
@@ -31,16 +32,20 @@ void exit_program(t_table *table, long *args)
         }
         free(table->forks);
     }
-    
     pthread_mutex_destroy(&table->print_mutex);
     pthread_mutex_destroy(&table->stop_mutex);
-    
+	i = 0;
     if (table->philos)
+	{
+		while (i < table->nbr_philo)
+		{
+			pthread_mutex_destroy(&table->philos[i].last_meal_mutex);
+			i++;
+		}
         free(table->philos);
-    
+	}
     if (args)
         free(args);
-    
     exit(1);
 }
 

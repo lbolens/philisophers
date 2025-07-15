@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 13:20:12 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/14 17:07:01 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/07/15 11:16:27 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ static void init_forks(t_fork *forks, t_philo *philos, t_table *table, int i, lo
 
 static void init_philos(t_philo *philos, t_table *table, int i)
 {
-    philos->philo_id = i;
+    philos->philo_id = i + 1;
     philos->nbr_meals = 0;
     philos->is_it_full = false;
     philos->last_meal = table->time_start;
     philos->table = table;
+    if (pthread_mutex_init(&philos->last_meal_mutex, NULL) != 0)
+        exit_program(table, NULL);
 }
 
 void init_data(t_table *table, long *argv)

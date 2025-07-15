@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:43:24 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/14 17:10:37 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/07/15 12:05:16 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_philo
     long nbr_meals;
     bool is_it_full;
     long last_meal;
+    mtx last_meal_mutex;
     t_fork *left_fork;
     t_fork *right_fork;
     pthread_t thread_id;
@@ -75,5 +76,12 @@ void    init_dinner(t_table *table, long *args);
 void exit_program(t_table *table, long *args);
 long    get_time(void);
 int	ft_atol(const char *str);
+
+//Utils routine
+void check_if_simulation_done(t_table *table);
+void print_forks_and_start_dinner(t_table *table, t_philo *philos);
+void check_before_sleep(t_table *table, t_philo *philos);
+void check_before_thinking(t_table *table, t_philo *philos);
+void check_after_forks_if_died(t_table *table, t_fork *first_fork, t_fork *second_fork);
 
 #endif
