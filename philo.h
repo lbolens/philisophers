@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 12:43:24 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/15 14:45:24 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/08/21 10:41:14 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void					exit_program(t_table *table, long *args, int i);
 long					get_time(void);
 int						ft_atol(const char *str);
 
-// Utils routine - CORRECTED: changed return types to bool
+// Utils routine
 bool					check_if_simulation_done(t_table *table);
 void					print_forks_and_start_dinner(t_table *table,
 							t_philo *philos);
@@ -82,12 +82,18 @@ bool					check_before_thinking(t_table *table, t_philo *philos);
 bool					check_after_forks_if_died(t_table *table,
 							t_fork *first_fork, t_fork *second_fork);
 
-// Utils routine bis - CORRECTED: removed unused parameter
+// Utils routine bis
 void					update_last_meal(t_table *table, t_philo *philos);
 void					manage_dead(t_table *table, t_philo *philos, int i);
 void					*reduce_function(t_table *table, t_philo *philos,
 							int i);
 void					*reduce_function_bis(int *i, int *all_full,
 							t_table *table, t_philo *philos);
+int						handle_sleep_and_think(t_table *table, t_philo *philo);
+
+// Utils routine ter
+int						take_forks_and_eat(t_philo *philo, t_table *table);
+void					get_fork_order(t_philo *philo, t_fork **first,
+							t_fork **second);
 
 #endif

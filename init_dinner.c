@@ -6,7 +6,7 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 10:43:02 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/15 14:35:51 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/08/21 10:41:57 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,20 @@
 
 static void	*routine(void *arg)
 {
-	t_philo	*philos;
+	t_philo	*philo;
 	t_table	*table;
-	t_fork	*first_fork;
-	t_fork	*second_fork;
-	t_fork	*temp;
 
-	philos = (t_philo *)arg;
-	table = philos->table;
-	while (table->max_meals == -1 || philos->nbr_meals < table->max_meals)
+	philo = (t_philo *)arg;
+	table = philo->table;
+	while (table->max_meals == -1 || philo->nbr_meals < table->max_meals)
 	{
 		if (!check_if_simulation_done(table))
 			return (NULL);
-		first_fork = philos->left_fork;
-		second_fork = philos->right_fork;
-		if (first_fork->fork_id > second_fork->fork_id)
-		{
-			temp = first_fork;
-			first_fork = second_fork;
-			second_fork = temp;
-		}
-		pthread_mutex_lock(&first_fork->fork);
-		pthread_mutex_lock(&second_fork->fork);
-		if (!check_after_forks_if_died(table, first_fork, second_fork))
+		if (!take_forks_and_eat(philo, table))
 			return (NULL);
-		print_forks_and_start_dinner(table, philos);
-		update_last_meal(table, philos);
-		pthread_mutex_unlock(&second_fork->fork);
-		pthread_mutex_unlock(&first_fork->fork);
-		if (table->max_meals != -1 && philos->nbr_meals >= table->max_meals)
+		if (table->max_meals != -1 && philo->nbr_meals >= table->max_meals)
 			break ;
-		if (!check_before_sleep(table, philos))
-			return (NULL);
-		if (!check_before_thinking(table, philos))
+		if (!handle_sleep_and_think(table, philo))
 			return (NULL);
 	}
 	return (NULL);

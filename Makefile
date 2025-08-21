@@ -6,7 +6,7 @@
 #    By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/15 11:19:11 by lbolens           #+#    #+#              #
-#    Updated: 2025/07/15 13:55:00 by lbolens          ###   ########.fr        #
+#    Updated: 2025/08/21 10:44:13 by lbolens          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRC			= main.c \
 			  parsing.c \
 			  utils.c \
 			  utils_routine.c \
-			  utils_routine_bis.c
+			  utils_routine_bis.c \
+			  utils_routine_ter.c
 			   
 OBJ			= $(SRC:.c=.o)
 

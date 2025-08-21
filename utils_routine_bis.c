@@ -6,11 +6,20 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 12:15:03 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/15 14:21:43 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/08/21 10:41:35 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	handle_sleep_and_think(t_table *table, t_philo *philo)
+{
+	if (!check_before_sleep(table, philo))
+		return (0);
+	if (!check_before_thinking(table, philo))
+		return (0);
+	return (1);
+}
 
 void	update_last_meal(t_table *table, t_philo *philos)
 {

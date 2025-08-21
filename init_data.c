@@ -6,17 +6,16 @@
 /*   By: lbolens <lbolens@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 13:20:12 by lbolens           #+#    #+#             */
-/*   Updated: 2025/07/15 14:36:49 by lbolens          ###   ########.fr       */
+/*   Updated: 2025/08/21 10:20:51 by lbolens          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	init_forks(t_fork *forks, t_philo *philos, t_table *table, int i,
-		long *argv)
+static void	init_forks(t_fork *forks, t_philo *philos, int i, t_table *table)
 {
 	if (pthread_mutex_init(&forks[i].fork, NULL) != 0)
-		exit_program(table, argv, 0);
+		exit_program(table, NULL, 0);
 	forks[i].fork_id = i;
 	philos[i].left_fork = &forks[i];
 	philos[i].right_fork = &forks[(i + 1) % table->nbr_philo];
@@ -65,7 +64,7 @@ void	init_data(t_table *table, long *argv)
 	i = 0;
 	while (i < table->nbr_philo)
 	{
-		init_forks(forks, philos, table, i, argv);
+		init_forks(forks, philos, i, table);
 		init_philos(&philos[i], table, i);
 		i++;
 	}
